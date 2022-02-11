@@ -1,4 +1,3 @@
-
 // deposit input field function
 function getInputValue (inputID){
     // input amount in input field and make it float value
@@ -9,8 +8,6 @@ function getInputValue (inputID){
 
     return newAmount;
 }
-
-
 
 // deposit amount and update total balance amount
 document.getElementById('deposit-btn').addEventListener('click', function() {
