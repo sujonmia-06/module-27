@@ -15,29 +15,37 @@ function updateTotalField(totalFieldID, newAmount) {
     const previousTotal = parseFloat(total.innerText);
     total.innerText = previousTotal + newAmount;
 }
-
-// deposit amount and update total balance amount
-document.getElementById('deposit-btn').addEventListener('click', function () {
-    // function calling: input field function
-    const newDepositAmount = getInputValue('deposit-input');
-    // function calling: update total field amount function
-    updateTotalField('deposit-total', newDepositAmount);
-
-    // previous balance amount and new deposit amount adding
+// update balance function
+function updateBalance(newAmount, isAdd) {
     const balanceTotal = document.getElementById('balance-total');
     const previousBalanceTotal = parseFloat(balanceTotal.innerText);
-    balanceTotal.innerText = previousBalanceTotal + newDepositAmount;
+    if (isAdd == true) {
+        balanceTotal.innerText = previousBalanceTotal + newAmount;
+    }
+    else {
+        balanceTotal.innerText = previousBalanceTotal - newAmount;
+    }
+}
+// deposit amount and update total balance amount
+document.getElementById('deposit-btn').addEventListener('click', function () {
+    const newDepositAmount = getInputValue('deposit-input');
+    if (newDepositAmount > 0) {
+        updateTotalField('deposit-total', newDepositAmount);
+        updateBalance(newDepositAmount, true);
+    }
+    else {
+        alert('Please enter a valid amount.');
+    }
 });
 //////////////////////////////////////////////////////////////////////////////
 // withdraw amount and update total balance amount
 document.getElementById('withdraw-btn').addEventListener('click', function () {
-    // function calling: input field function
     const newWithdrawAmount = getInputValue('withdraw-input');
-    // function calling: update total field amount function
-    updateTotalField('withdraw-total', newWithdrawAmount);
-
-    // previous balance amount and new withdraw amount deducting
-    const balanceTotal = document.getElementById('balance-total');
-    const previousBalanceTotal = parseFloat(balanceTotal.innerText);
-    balanceTotal.innerText = previousBalanceTotal - newWithdrawAmount;
+    if (newWithdrawAmount > 0) {
+        updateTotalField('withdraw-total', newWithdrawAmount);
+        updateBalance(newWithdrawAmount, false);
+    }
+    else {
+        alert('Please enter a valid amount.');
+    }
 })
